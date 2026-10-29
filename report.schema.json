@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/alexandru-savinov/agterm-omarchy-agent-template/blob/main/report.schema.json",
+  "title": "Native acceptance report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "report_id",
+    "observed_at",
+    "subject",
+    "attribution",
+    "checks",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "report_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+    },
+    "observed_at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "repository",
+        "source_commit",
+        "architecture",
+        "platform"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 1000
+        },
+        "source_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "architecture": {
+          "type": "string",
+          "enum": [
+            "aarch64",
+            "x86_64"
+          ]
+        },
+        "platform": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        }
+      }
+    },
+    "attribution": {
+      "type": "object",
+      "required": [
+        "agent",
+        "github_account",
+        "activity",
+        "account_relationship",
+        "new_runtime_test",
+        "independent_account_review"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "agent": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+        },
+        "github_account": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+        },
+        "activity": {
+          "type": "string",
+          "enum": [
+            "existing_evidence_review",
+            "runtime_execution"
+          ]
+        },
+        "account_relationship": {
+          "type": "string",
+          "enum": [
+            "owner_operated",
+            "external_contributor"
+          ]
+        },
+        "new_runtime_test": {
+          "type": "boolean"
+        },
+        "independent_account_review": {
+          "type": "boolean"
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "result",
+          "evidence_kind",
+          "evidence_url",
+          "note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "not_run"
+            ]
+          },
+          "evidence_kind": {
+            "type": "string",
+            "enum": [
+              "inspected_artifact",
+              "operator_report",
+              "executed_directly"
+            ]
+          },
+          "evidence_url": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 1000
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000
+      }
+    }
+  }
+}

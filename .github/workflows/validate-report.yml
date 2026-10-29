@@ -1,0 +1,28 @@
+name: Validate acceptance report
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Exercise attribution and input boundaries
+        run: python3 scripts/test_validate_report.py
+      - name: Validate the attributed report
+        run: python3 scripts/validate_report.py report.json
+      - name: Preserve validator outcome
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: report-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/validation.json
+          if-no-files-found: error
+          retention-days: 30

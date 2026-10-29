@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "report_id": "omarchy-existing-evidence-example",
+  "observed_at": "2026-10-29T21:23:07.609402+00:00",
+  "subject": {
+    "repository": "https://github.com/alexandru-savinov/agterm-omarchy",
+    "source_commit": "5e37cb75ce3d4879ca8b7c74ed28d0548780163a",
+    "architecture": "aarch64",
+    "platform": "Omarchy / Hyprland 0.56.1 / UTM"
+  },
+  "attribution": {
+    "agent": "test_plan",
+    "github_account": "alexandru-savinov",
+    "activity": "existing_evidence_review",
+    "account_relationship": "owner_operated",
+    "new_runtime_test": false,
+    "independent_account_review": false
+  },
+  "checks": [
+    {
+      "name": "installed-live-runtime-report",
+      "result": "pass",
+      "evidence_kind": "inspected_artifact",
+      "evidence_url": "https://github.com/alexandru-savinov/agterm-omarchy/blob/73286f449f86c1fe8cc956f0f35f76cbac442ed0/docs/evidence/omarchy-arm64-2026-10-29/results/installed-result.json",
+      "note": "Existing operator run jntN10 records nine passed checks, including Live shell continuity. This report did not rerun them."
+    },
+    {
+      "name": "corrected-cleanup-audit",
+      "result": "pass",
+      "evidence_kind": "inspected_artifact",
+      "evidence_url": "https://github.com/alexandru-savinov/agterm-omarchy/blob/73286f449f86c1fe8cc956f0f35f76cbac442ed0/docs/evidence/omarchy-arm64-2026-10-29/results/fresh-audit.json",
+      "note": "Existing audit records empty isolated backend listings and absent recorded shell PIDs for FJbnJA and jntN10."
+    },
+    {
+      "name": "native-core-tests",
+      "result": "pass",
+      "evidence_kind": "operator_report",
+      "evidence_url": "https://github.com/alexandru-savinov/agterm-omarchy/issues/5#issuecomment-6506869967",
+      "note": "The operator reported 4,025 tests in 175 suites; this repository validates report structure, not those test executions."
+    }
+  ],
+  "limitations": [
+    "Owner-operated evidence review under the shared account; no new runtime execution or independent account approval.",
+    "The VM used a process-local software-rendering override and a zsh login-shell fixture without an account setting change.",
+    "The old KGFCvN cleanup claim was invalidated; the linked corrected results retain that history.",
+    "Source/binary comparison was performed after the build and is not a signed compiler-input attestation."
+  ]
+}
